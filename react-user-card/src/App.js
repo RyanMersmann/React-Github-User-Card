@@ -4,7 +4,7 @@ import Header from './components/header'
 import './App.css';
 import axios from 'axios';
 
-class App extends Component {
+export default class App extends Component {
   state = {
     userCardArray: [],
     followingArray: []
@@ -38,12 +38,12 @@ class App extends Component {
   }
 
   createUserCard = () => {
-    axios.get('https://api.github.com/users/RyanMersmann/followers')
+    axios.get('https://api.github.com/users/RyanMersmann/following')
       .then(response => {
         console.log("the people I follow", response);
         this.setState({ followingArray: response.data });
-        const followingLinks = this.state.followingArray.map(person => {
-          return person.url;
+        const followingLinks = this.state.followingArray.map(user => {
+          return user.url;
         })
         followingLinks.forEach(el => {
           axios.get(el)
@@ -98,5 +98,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;
